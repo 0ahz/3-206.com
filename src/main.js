@@ -1,5 +1,4 @@
 import confetti from 'canvas-confetti';
-import { SnowfallCanvas } from 'react-snowfall';
 import './style.css';
 
 const today = new Date();
@@ -11,8 +10,6 @@ const todayIsFriday = today.getDay() === 5;
 const qustionElm = document.querySelector('#friday-qustion');
 const answerElm = document.querySelector('#friday-answer');
 const footerElm = document.querySelector('#footer');
-const snowfallElm = document.querySelector('#snowfall');
-const canvas = snowfallElm.querySelector('canvas');
 
 qustionElm.innerHTML = '&nbsp;&nbsp;今天是星期五吗？';
 answerElm.innerHTML = todayIsFriday ? '是的' : '不是';
@@ -22,22 +19,6 @@ footerElm.innerHTML = `
   <span> ~ </span>
   <span>${todayFullYear}</span>
 `;
-
-new SnowfallCanvas(canvas, {
-  snowflakeCount: 200,
-});
-
-canvas.height = canvas.offsetHeight;
-canvas.width = canvas.offsetWidth;
-
-const resizeObserver = new ResizeObserver(entries => {
-  for (const entry of entries) {
-    canvas.height = entry.contentRect.height;
-    canvas.width = entry.contentRect.width;
-  }
-});
-
-resizeObserver.observe(canvas);
 
 function randomInRange(min, max) {
   return Math.random() * (max - min) + min;

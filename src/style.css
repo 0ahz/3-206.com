@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @font-face {
   font-family: 'SourceHanSerifCN-Bold';
@@ -68,4 +66,14 @@ html.wechat body {
   100% {
     background-position: 100% 50%;
   }
+}
+
+.holiday-lights {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  background: transparent url(/lights.svg) top center repeat-x;
+  height: 65px;
+  width: 100%;
 }

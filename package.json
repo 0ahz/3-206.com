@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "fontmin": "node fonts/fontmin.js",
     "build": "pnpm fontmin && vite build",
     "preview": "vite preview",
@@ -24,5 +24,6 @@
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",
     "canvas-confetti": "^1.9.4"
-  }
+  },
+  "packageManager": "pnpm@10.24.0"
 }

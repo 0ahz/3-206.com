@@ -10,11 +10,11 @@ const resolvePath = path => {
 };
 
 new Fontmin()
-  .src(resolvePath('./SourceHanSerifCN-Bold.ttf'))
+  .src(resolvePath('./fusion-pixel-12px-proportional-zh_hans.ttf'))
   .dest(resolvePath('../public'))
   .use(
     Fontmin.glyph({
-      text: '今天是星期五吗的不1234567890?~',
+      text: '  今天是星期五吗的不？?1234567890~',
     }),
   )
   .run((err, files) => {

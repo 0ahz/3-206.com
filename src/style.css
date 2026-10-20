@@ -1,8 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @font-face {
-  font-family: 'SourceHanSerifCN-Bold';
-  src: url(/SourceHanSerifCN-Bold.ttf) format('truetype');
+  font-family: 'FusionPixel';
+  src: url(/fusion-pixel-12px-proportional-zh_hans.ttf) format('truetype');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -84,9 +84,7 @@ html.wechat body {
 }
 
 /* 极旧浏览器不支持文字裁剪时，退化为纯色，避免文字隐形 */
-@supports not (
-  (-webkit-background-clip: text) or (background-clip: text)
-) {
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
   .shine-text {
     background-image: none;
     color: var(--shine-3);

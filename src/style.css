@@ -11,18 +11,24 @@
 html,
 body {
   text-size-adjust: 100% !important;
-  --develop-start-gradient: oklch(59.59% 0.24 255.09156059071347);
-  --develop-end-gradient: oklch(81.58% 0.189 190.74037768509325);
-  --develop-line-end: oklch(65.84% 0.203 242.5318349103755);
-  --develop-text: oklch(57.49% 0.249 257.84);
-  --preview-start-gradient: oklch(49.07% 0.272 300.45);
-  --preview-end-gradient: oklch(64.53% 0.292 2.47);
-  --preview-line-end: oklch(51.39% 0.267 318.36);
-  --preview-text: oklch(59.93% 0.274 352.55);
-  --ship-start-gradient: oklch(67.3% 0.266 25.039656026515278);
-  --ship-end-gradient: oklch(85.82% 0.201 91.19);
-  --ship-line-end: oklch(85.82% 0.201 91.19);
-  --ship-text: oklch(68.79% 0.25 27.76);
+  /* 日落流光：香槟金 → 暖橙 → 珊瑚 → 玫红 → 暮紫 */
+  --shine-1: oklch(70% 0.16 65);
+  --shine-2: oklch(66% 0.2 38);
+  --shine-3: oklch(62% 0.22 12);
+  --shine-4: oklch(59% 0.23 340);
+  --shine-5: oklch(55% 0.21 292);
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    /* 深色背景下整体提亮，保持通透感 */
+    --shine-1: oklch(82% 0.16 75);
+    --shine-2: oklch(76% 0.19 45);
+    --shine-3: oklch(71% 0.2 15);
+    --shine-4: oklch(70% 0.21 340);
+    --shine-5: oklch(67% 0.19 292);
+  }
 }
 
 html.wechat body {
@@ -30,40 +36,64 @@ html.wechat body {
 }
 
 .shine-text {
-  background: linear-gradient(
-    to right,
-    /* #ff6b6b,
-    #ffa06a,
-    #f3ff6d,
-    #72ff6a,
-    #72ffcc,
-    #72cfff,
-    #b072ff,
-    #ff72f2 */
-      var(--develop-text),
-    var(--develop-start-gradient),
-    var(--develop-line-end),
-    var(--develop-end-gradient),
-    var(--preview-text),
-    var(--preview-start-gradient),
-    var(--preview-line-end),
-    var(--preview-end-gradient),
-    var(--ship-text),
-    var(--ship-start-gradient),
-    var(--ship-line-end),
-    var(--ship-end-gradient)
+  /* 首尾同色 + 200% 背景宽度，让循环位移无接缝 */
+  background-image: linear-gradient(
+    90deg,
+    var(--shine-1),
+    var(--shine-2),
+    var(--shine-3),
+    var(--shine-4),
+    var(--shine-5),
+    var(--shine-1)
   );
+  background-size: 200% auto;
+  background-repeat: repeat-x;
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 300% auto;
-  animation: textShine 2s ease-in-out infinite alternate;
+  animation: textShine 8s linear infinite;
+  will-change: background-position;
+}
+
+/* 给主角答案加一层随字号缩放的柔光 */
+.shine-glow {
+  --shine-glow: oklch(62% 0.2 20 / 0.2);
+  filter: drop-shadow(0 0 0.12em var(--shine-glow));
 }
 
 @keyframes textShine {
-  0% {
-    background-position: 0% 50%;
+  from {
+    background-position: 0% center;
   }
-  100% {
-    background-position: 100% 50%;
+  to {
+    background-position: 200% center;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .shine-glow {
+    --shine-glow: oklch(72% 0.19 30 / 0.32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shine-text {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+/* 极旧浏览器不支持文字裁剪时，退化为纯色，避免文字隐形 */
+@supports not (
+  (-webkit-background-clip: text) or (background-clip: text)
+) {
+  .shine-text {
+    background-image: none;
+    color: var(--shine-3);
+    -webkit-text-fill-color: currentColor;
+  }
+
+  .shine-glow {
+    filter: none;
   }
 }
